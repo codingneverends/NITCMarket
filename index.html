@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>NITC Market</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+    <script src="main.js" defer></script>
+</head>
+
+<body class="dfcc">
+    <div id="topbar">
+        <div class="title"> NITC Market </div>
+        <i class="fa fa-search" aria-hidden="true" style="padding-right:20px;font-size:1.5rem;" id="searchicon" onclick="Searchbar.show(true)"></i>
+        <div class="propic" id="user_propic" onclick="ShowAccount()"><img src="user.png"></div>
+        <div class="ham" onclick="SideBar.show()"><i class="fa fa-bars" aria-hidden="true"></i></div>
+    </div>
+    <div class="searchbar">
+        <i class="fa fa-search" aria-hidden="true" style="margin-right:0px;" onclick="Searchbar.hide()"></i>
+        <input type="text" value="" placeholder="Seach Items" id="serachstring">
+        <i class="fa fa-arrow-right" aria-hidden="true" style="margin-left:0px;" onclick="Searchbar.search()"></i>
+    </div>
+    <div id="sidebarlayer" onclick="SideBar.hide()"></div>
+    <div id="sidebar">
+        <div class="title">
+            <div class="con"> NITC Market </div>
+            <div class="close" onclick="SideBar.hide()"><i class="fa fa-times"></i></div>
+        </div>
+        <div id="opts" class="opts">
+        </div>
+    </div>
+    <div id="app">
+    </div>
+</body>
+
+</html>
