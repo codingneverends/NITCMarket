@@ -326,6 +326,15 @@ if($_get)
         $data["password"]="oops";
         $final_result=$data;
     }
+    if($act==".acceptclaim"){
+
+    }
+    if($act==".rejectclaim"){
+
+    }
+    if($act==".deleteuser"){
+
+    }
 }
 
 
