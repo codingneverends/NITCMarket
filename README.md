@@ -8,7 +8,7 @@
 
 2.Change upload Folder path such that it refernce to storage folder if needed.
 
-3.Create tdatabase called 'nitmarket' and import nitcarket.sql.
+3.Create database called 'nitmarket' and import nitcmarket.sql.
 
 4.Change mysql crendiantials if needed.
 
