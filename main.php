@@ -41,21 +41,6 @@ function IsAdmin($db,$uuid){
     }
     return 0;
 }
-function updaterating($db,$place_id){
-    $sql="SELECT SUM(`value`) as _sum,COUNT(*) as _count FROM `rating` WHERE `placeid`=$place_id";
-    $result = $db->query($sql);
-    $data=mysqli_fetch_assoc($result);
-    $sum = (int)$data["_sum"];
-    $count = (int)$data["_count"];
-    if($count==0)
-        $rating=0;
-    else{
-        $rating = (int)($sum/$count*10);
-        $rating=(float)($rating/10);
-    }
-    $sql="UPDATE `places` SET `rating`=$rating , `tot_raters`=$count WHERE `uuid`=$place_id";
-    $result = $db->query($sql);
-}
 //Logs users in
 
 $_get=isset($_POST['status']) ? true : false;
