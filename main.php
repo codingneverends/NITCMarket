@@ -309,7 +309,7 @@ if($_get)
         $result=$db->query($sql);
         $final_result = $result;
     }
-    if($act==".deleteitem"){
+    if($act=="deleteitem"){
         //Complete later
         $uuid=$_POST["uuid"];
         $item_id = $_POST["item_id"];
@@ -317,14 +317,15 @@ if($_get)
         $result=$db->query($sql);
         $data=mysqli_fetch_assoc($result);
         if(IsAdmin($db,$uuid) || $uuid==$data["userid"]){
-            $sql="DELETE FROM `users` WHERE `uuid`=$uuid";
-
+            $sql="DELETE FROM `photos` WHERE `itemid`=$item_id";
+            $result=$db->query($sql);
+            //Can be added phpto deleting cde from server
+            $sql="DELETE FROM `claims` WHERE `itemid`=$item_id";
+            $result=$db->query($sql);
+            $sql="DELETE FROM `items` WHERE `uuid`=$item_id";
+            $result=$db->query($sql);
         }
-        $sql="SELECT * FROM `users` WHERE `uuid`=$uuid";
-        $result=$db->query($sql);
-        $data=mysqli_fetch_assoc($result);
-        $data["password"]="oops";
-        $final_result=$data;
+        $final_result=$result;
     }
     if($act==".acceptclaim"){
 
@@ -333,7 +334,23 @@ if($_get)
 
     }
     if($act==".deleteuser"){
-
+        $uuid=$_POST["uuid"];
+        $user_id = $_POST["user_id"];
+        if(IsAdmin($db,$uuid) && $uuid!=$user_id){
+            $sql="DELETE FROM `claims` WHERE `user_id`=$user_id";
+            $result=$db->query($sql);
+            $sql="SELECT * FROM `items` WHERE `userid`=$user_id";
+            $result=$db->query($sql);
+            if($result){
+                while($row=mysqli_fetch_assoc($result)){
+                    $item_id = $row["uuid"];
+                    $sql="DELETE FROM `photos` WHERE `itemid`=$item_id";
+                    $result=$db->query($sql);
+                }
+            }
+            $sql="DELETE FROM `users` WHERE `uuid`=$user_id";
+            $result=$db->query($sql);
+        }
     }
 }
 

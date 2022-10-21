@@ -550,7 +550,7 @@ function MyPosts(){
         Searchbar.hide();
     });
 }
-function DeleteItem(item_id){
+function DeletePost(item_id){
     var url = siteurl + "main.php";
     var data = new FormData();
     data.append('status', 'deleteitem');
