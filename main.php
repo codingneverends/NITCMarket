@@ -293,7 +293,7 @@ if($_get)
         $sql="SELECT * FROM `items` WHERE `uuid`=$item_id";
         $result=$db->query($sql);
         if(mysqli_fetch_assoc($result)["userid"]==$uuid){
-            $sql="SELECT `userid`,`name` FROM `claims` INNER JOIN `users` ON `claims`.`userid`=`users`.`uuid` WHERE `itemid`=$item_id";
+            $sql="SELECT `userid`,`name`,`status` FROM `claims` INNER JOIN `users` ON `claims`.`userid`=`users`.`uuid` WHERE `itemid`=$item_id";
             $result=$db->query($sql);
             $i=0;
             while($row=mysqli_fetch_assoc($result)){
@@ -305,9 +305,16 @@ if($_get)
     if($act=="removeclaimitem"){
         $uuid=$_POST["uuid"];
         $item_id = $_POST["item_id"];
-        $sql="DELETE FROM `claims` WHERE `itemid`=$item_id and $uuid = `userid`";
+        $sql="SELECT * FROM `claims` WHERE `itemid`=$item_id and $uuid = `userid`";
         $result=$db->query($sql);
-        $final_result = $result;
+        $row=mysqli_fetch_assoc($result);
+        if($row["status"]!="accepted"){
+            $sql="DELETE FROM `claims` WHERE `itemid`=$item_id and $uuid = `userid`";
+            $result=$db->query($sql);
+            $final_result = $result;
+        }else{
+            $final_result = "Error:Accepted";
+        }
     }
     if($act=="deleteitem"){
         //Complete later
@@ -327,11 +334,27 @@ if($_get)
         }
         $final_result=$result;
     }
-    if($act==".acceptclaim"){
-
-    }
-    if($act==".rejectclaim"){
-
+    if($act=="acceptclaim" || $act=="rejectclaim" || $act=="nullclaim"){
+        $claimstatus='';
+        if($act=="rejectclaim"){
+            $claimstatus="rejected";
+        }
+        if($act=="acceptclaim"){
+            $claimstatus="accepted";
+        }
+        if($act=="nullclaim"){
+            $claimstatus="not decided";
+        }
+        $uuid=$_POST["uuid"];
+        if(IsAdmin($db,$uuid)){
+            $item_id = $_POST["item_id"];
+            $user_id = $_POST["user_id"];
+            $sql="UPDATE `claims` SET `status`='".$claimstatus."' WHERE `itemid`=$item_id AND `userid`=$user_id";
+            $result=$db->query($sql);
+            $final_result=$result;
+        }
+        else
+            $final_result="Need Elevated Priviliages";
     }
     if($act==".deleteuser"){
         $uuid=$_POST["uuid"];

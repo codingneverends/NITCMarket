@@ -784,6 +784,7 @@ html {
     padding: 5px;
     margin: 10px;
     border: 1px solid black;
+    cursor: pointer;
 }
 
 .post {

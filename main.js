@@ -631,10 +631,17 @@ function GetClaimers(item_id){
         let _html=`<div class='claimers'> Claimers </div>`;
         for(var i=0;i<_data.length;i++){
             let claimer=_data[i];
+            let btn_html='';
+            if(claimer.status!='not decided')
+                btn_html+=`<div class='claimer_btn' onclick="NullClaim(${item_id},${claimer.userid})"> Keep Waiting </div>`;
+            if(claimer.status!='accepted')
+                btn_html+=`<div class='claimer_btn' onclick="AcceptClaim(${item_id},${claimer.userid})"> Accept </div>`;
+            if(claimer.status!='rejected')
+                btn_html+=`<div class='claimer_btn' onclick="RejectClaim(${item_id},${claimer.userid})"> Reject </div>`;
             _html+=`<div class='claimer'>
                 <div class='claimer_name'> ${claimer.name} </div>
-                <div class='claimer_btn'> Accept </div>
-                <div class='claimer_btn'> Reject </div>
+                <div class='claimer_name'> ${Caps(claimer.status)} </div>
+                ${btn_html}
             </div>`
         }
         if(_html==`<div class='claimers'> Claimers </div>`){
@@ -644,6 +651,44 @@ function GetClaimers(item_id){
     });
     return '';
 }
+
+function AcceptClaim(itemid,userid){
+    var url = siteurl + "main.php";
+    var data = new FormData();
+    data.append('status', 'acceptclaim');
+    data.append('item_id', itemid);
+    data.append('uuid', User.get().uuid);
+    data.append('user_id', userid);
+    Post(url, data,(data,itemid)=>{
+        console.log(data);
+        ShowItem(itemid);
+    },itemid);
+}
+function RejectClaim(itemid,userid){
+    var url = siteurl + "main.php";
+    var data = new FormData();
+    data.append('status', 'rejectclaim');
+    data.append('item_id', itemid);
+    data.append('uuid', User.get().uuid);
+    data.append('user_id', userid);
+    Post(url, data,(data,itemid)=>{
+        console.log(data);
+        ShowItem(itemid);
+    },itemid);
+}
+function NullClaim(itemid,userid){
+    var url = siteurl + "main.php";
+    var data = new FormData();
+    data.append('status', 'nullclaim');
+    data.append('item_id', itemid);
+    data.append('uuid', User.get().uuid);
+    data.append('user_id', userid);
+    Post(url, data,(data,itemid)=>{
+        console.log(data);
+        ShowItem(itemid);
+    },itemid);
+}
+
 //Image Slider Manager
 function genslider(imglinks){
     var _html= `
