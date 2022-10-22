@@ -356,7 +356,7 @@ if($_get)
         else
             $final_result="Need Elevated Priviliages";
     }
-    if($act==".deleteuser"){
+    if($act=="deleteuser"){
         $uuid=$_POST["uuid"];
         $user_id = $_POST["user_id"];
         if(IsAdmin($db,$uuid) && $uuid!=$user_id){
@@ -367,6 +367,8 @@ if($_get)
             if($result){
                 while($row=mysqli_fetch_assoc($result)){
                     $item_id = $row["uuid"];
+                    $sql="DELETE FROM `claims` WHERE `itemid`=$item_id";
+                    $result=$db->query($sql);
                     $sql="DELETE FROM `photos` WHERE `itemid`=$item_id";
                     $result=$db->query($sql);
                 }
