@@ -818,3 +818,50 @@ html {
     border-radius: 5px;
     cursor: pointer;
 }
+
+#popup {
+    width: 100vw;
+    height: 100vh;
+    background: #0000007f;
+    z-index: -100;
+    opacity: 0;
+    top: 0px;
+    left: 0px;
+    position: absolute;
+}
+
+#popup.show {
+    opacity: 1;
+    z-index: 100;
+}
+
+#popup .wrapbox {
+    padding: 10px;
+    background: white;
+    border-radius: 10px;
+}
+
+#popup .title {
+    font-size: 2rem;
+    margin: 10px;
+}
+
+#popup .title.error {
+    color: red;
+}
+
+#popup .title.warning {
+    color: yellow;
+}
+
+#popup .msg {
+    font-size: 1.4rem;
+    margin: 10px;
+}
+
+#popup i {
+    font-size: 1.8rem;
+    margin: 10px;
+    color: black;
+    cursor: pointer;
+}

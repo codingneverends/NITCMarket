@@ -313,7 +313,7 @@ if($_get)
             $result=$db->query($sql);
             $final_result = $result;
         }else{
-            $final_result = "Error:Accepted";
+            $final_result["error"] ="accepted";
         }
     }
     if($act=="deleteitem"){

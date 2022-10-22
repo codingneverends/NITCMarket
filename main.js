@@ -142,6 +142,27 @@ const loginerrormodule = {
     }
 }
 
+const PoPUp = {
+    //Error popup
+    init() {
+        this.ele = document.getElementById("popup")
+    },
+    show(title, msg, _class) {
+        let html_ = `
+        <div class="wrapbox dfcc">
+            <div class="title ${_class}">${title}</div>
+            <div class="msg">${msg}</div>
+            <i class="fa fa-times-circle-o" aria-hidden="true" onclick="PoPUp.hide()"></i>
+        </div>`;
+        this.ele.innerHTML = html_;
+        this.ele.classList = "dfc show";
+    },
+    hide() {
+        this.ele.innerHTML = "";
+        this.ele.classList = "dfc";
+    }
+}
+
 function LogOut() {
     User.set({
         uuid: "nil",
@@ -466,7 +487,14 @@ function RemoveClaim(itemid){
     data.append('item_id', itemid);
     data.append('uuid', User.get().uuid);
     Post(url, data,(data,itemid)=>{
-        ShowItem(itemid);
+        console.log(data);
+        data=JSON.parse(data);
+        console.log(data);
+        if(data.error=='accepted'){
+            PoPUp.show("Error!","Can't remove claim accepted item, contact seller.","error");
+        }
+        else
+            ShowItem(itemid);
     },itemid);
     
 }
@@ -748,4 +776,5 @@ App.init();
 SideBar.init();
 User.init();
 Searchbar.init();
+PoPUp.init();
 Home();
