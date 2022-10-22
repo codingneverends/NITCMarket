@@ -56,6 +56,9 @@ const SideBar = {
             <div class="opt" onclick="ShowAccount()">Account</div>
         </div>
         <div class="ele">
+            <div class="opt" onclick="ListUsers()">List users</div>
+        </div>
+        <div class="ele">
             <div class="opt" onclick="LogOut()">LogOut</div>
         </div>
         `;
@@ -347,12 +350,48 @@ function _AccountPage(_data) {
             <div class="dfc user_datas">
                 ${_data.uuid == User.get().uuid?`<button>Change Password</button>`:""}
             </div>
+            ${User.get().role=="admin"?`<button>Delete User</button>`:""}
         </div>
     </div>`;
     SideBar.hide();
     Searchbar.hide();
 }
+function ListUsers(){
+    var url = siteurl + "main.php";
+    var data = new FormData();
+    data.append('status', 'getallusers');
+    data.append('uuid', User.get().uuid);
+    Post(url, data, (dat) => {
+        dat = JSON.parse(dat);
+        console.log(dat);
+        let ini_html=`<div class="main_head">All Users</div>`;
+        let _html=ini_html;
+        for(const i in dat){
+            _html+=`<div class="pbox" onclick="ShowProfile(${dat[i].uuid})">
+            <div class="iwrap dfc clamp200">
+                <img src=${dat[i].imgurl} alt="No image uploaded">
+            </div>
+            <div class="cwrap dfc">
+                <div>
+                    <div class="name">Name : ${dat[i].name}</div><br><br>
+                    <div class="name">UID : ${dat[i].uuid}</div><br><br>
+                </div>
+            </div>
+        </div>`;
+        }
+        App.sethtml(`
+        <div class="products">
+            ${_html==ini_html?`
+                ${ini_html}
+                <h3>No users are here</h3>
+            `:`${_html}`}
+        </div>
+        `);
+        SideBar.hide();
+        Searchbar.show();
+    });
 
+}
 //Update UserImage
 function SetImage(){
     //["lhkjh","png"]

@@ -677,6 +677,16 @@ html {
     height: clamp(100px, 50vw, 300px);
 }
 
+.products .pbox .iwrap.clamp200 img {
+    max-width: clamp(100px, 50vw, 200px);
+    max-height: clamp(100px, 50vw, 200px);
+}
+
+.products .pbox .iwrap.clamp200 {
+    width: clamp(100px, 50vw, 200px);
+    height: clamp(100px, 50vw, 200px);
+}
+
 .products .pbox .cwrap {
     flex-grow: 1;
 }

@@ -356,6 +356,20 @@ if($_get)
         else
             $final_result="Need Elevated Priviliages";
     }
+    if($act=="getallusers"){
+        $uuid=$_POST["uuid"];
+        if(IsAdmin($db,$uuid)){
+            $sql="SELECT `uuid`,`name`,`imgurl` FROM `users` WHERE `role`='user'";
+            $result=$db->query($sql);
+            $i=0;
+            while($row=mysqli_fetch_assoc($result)){
+                $final_result[$i]=$row;
+            }
+        }
+        else{
+            $final_result["error"]="Need Elevated Priviliages";
+        }
+    }
     if($act=="deleteuser"){
         $uuid=$_POST["uuid"];
         $user_id = $_POST["user_id"];
