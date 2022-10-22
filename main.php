@@ -326,7 +326,7 @@ if($_get)
         if(IsAdmin($db,$uuid) || $uuid==$data["userid"]){
             $sql="DELETE FROM `photos` WHERE `itemid`=$item_id";
             $result=$db->query($sql);
-            //Can be added phpto deleting cde from server
+            //Can be added photo deleting cde from server
             $sql="DELETE FROM `claims` WHERE `itemid`=$item_id";
             $result=$db->query($sql);
             $sql="DELETE FROM `items` WHERE `uuid`=$item_id";
