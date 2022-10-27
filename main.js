@@ -21,28 +21,28 @@ const App = {
 }
 
 const SideBar = {
-    init() {
-        this.sidebar = document.getElementById("sidebar");
-        this.sidebarlayer = document.getElementById("sidebarlayer");
-        this.sidebarlayer.style.zIndex = 1;
-        this.sidebarlayer.style.background = "#000000af";
-        this.opts = document.getElementById("opts");
-        SideBar.hide();
-        SideBar.setopts(false);
-    },
-    hide() {
-        this.sidebar.style.maxWidth = "0px";
-        this.sidebarlayer.style.width = "0vw";
-    },
-    show() {
-        this.sidebar.style.maxWidth = "650px";
-        this.sidebarlayer.style.width = "100vw";
-    },
-    setopts(_user = false) {
-        const _user_ins = User.get();
-        if (_user) {
-            const isadmin = _user_ins.role == "admin";
-            this.opts.innerHTML = `
+        init() {
+            this.sidebar = document.getElementById("sidebar");
+            this.sidebarlayer = document.getElementById("sidebarlayer");
+            this.sidebarlayer.style.zIndex = 1;
+            this.sidebarlayer.style.background = "#000000af";
+            this.opts = document.getElementById("opts");
+            SideBar.hide();
+            SideBar.setopts(false);
+        },
+        hide() {
+            this.sidebar.style.maxWidth = "0px";
+            this.sidebarlayer.style.width = "0vw";
+        },
+        show() {
+            this.sidebar.style.maxWidth = "650px";
+            this.sidebarlayer.style.width = "100vw";
+        },
+        setopts(_user = false) {
+            const _user_ins = User.get();
+            if (_user) {
+                const isadmin = _user_ins.role == "admin";
+                this.opts.innerHTML = `
         <div class="ele">
             <div class="opt" onclick="Home()">Home</div>
         </div>
@@ -55,9 +55,10 @@ const SideBar = {
         <div class="ele">
             <div class="opt" onclick="ShowAccount()">Account</div>
         </div>
+        ${isadmin?`
         <div class="ele">
             <div class="opt" onclick="ListUsers()">List users</div>
-        </div>
+        </div>`:''}
         <div class="ele">
             <div class="opt" onclick="LogOut()">LogOut</div>
         </div>
