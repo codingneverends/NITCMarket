@@ -99,8 +99,11 @@ if($_get)
         if($data['password']==$oldpass){
             $sql="UPDATE `users` SET `password`='".$newpass."' WHERE `uuid`=$uuid";
             $result=$db->query($sql);
+            $final_result=$result;
         }
-        $final_result=$result;
+        else{
+            $final_result['error']=true;
+        }
     }
     if($act=="login"){
         $email=$_POST["email"];

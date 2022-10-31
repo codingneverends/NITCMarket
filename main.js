@@ -489,8 +489,11 @@ function changepassword(){
     data.append('pass2', pass2);
     data.append('uuid', Number(User.get().uuid));
     Post(url, data, (data)=>{
-        console.log(data);
         PoPUp.hide();
+        data=JSON.parse(data);
+        if(data.error){
+            PoPUp.show("Error","Wrong Password","error");
+        }
     })
 }
 //Update UserImage
