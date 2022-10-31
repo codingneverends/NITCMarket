@@ -17,12 +17,3 @@
 1.User called 'Hayabusa' with email 'hayabusa@gmail.com' and password 'pass1234' is admin.
 
 2.User called 'Hanabi' with email 'hanabi@gmail.com' and password 'pass1234' is normal user.
-
-### Works Pending
-
-    I belive
-    
-    1.Deleting Item
-    2.Accept Claim
-    3.Reject Claim
-    3.Deleting User
