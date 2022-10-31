@@ -351,7 +351,7 @@ function _AccountPage(_data) {
             <div class="dfc user_datas">
                 ${_data.uuid == User.get().uuid?`<button>Change Password</button>`:""}
             </div>
-            ${User.get().role=="admin"?`<button>Delete User</button>`:""}
+            ${User.get().role=="admin"?`<button onclick='DeleteUser(${_data.uuid})'>Delete User</button>`:""}
         </div>
     </div>`;
     SideBar.hide();
@@ -393,6 +393,18 @@ function ListUsers(){
     });
 
 }
+function DeleteUser(user_id){
+    var url = siteurl + "main.php";
+    var data = new FormData();
+    data.append('status', 'deleteuser');
+    data.append('user_id', user_id);
+    data.append('uuid', Number(User.get().uuid));
+    Post(url, data, (data)=>{
+        console.log(data);
+        ListUsers();
+    })
+}
+
 //Update UserImage
 function SetImage(){
     //["lhkjh","png"]

@@ -364,6 +364,7 @@ if($_get)
             $i=0;
             while($row=mysqli_fetch_assoc($result)){
                 $final_result[$i]=$row;
+                $i++;
             }
         }
         else{
@@ -374,7 +375,7 @@ if($_get)
         $uuid=$_POST["uuid"];
         $user_id = $_POST["user_id"];
         if(IsAdmin($db,$uuid) && $uuid!=$user_id){
-            $sql="DELETE FROM `claims` WHERE `user_id`=$user_id";
+            $sql="DELETE FROM `claims` WHERE `userid`=$user_id";
             $result=$db->query($sql);
             $sql="SELECT * FROM `items` WHERE `userid`=$user_id";
             $result=$db->query($sql);
@@ -382,13 +383,16 @@ if($_get)
                 while($row=mysqli_fetch_assoc($result)){
                     $item_id = $row["uuid"];
                     $sql="DELETE FROM `claims` WHERE `itemid`=$item_id";
-                    $result=$db->query($sql);
+                    $result_=$db->query($sql);
                     $sql="DELETE FROM `photos` WHERE `itemid`=$item_id";
-                    $result=$db->query($sql);
+                    $result_=$db->query($sql);
                 }
+                $sql="DELETE FROM `items` WHERE `userid`=$user_id";
+                $result_=$db->query($sql);
             }
             $sql="DELETE FROM `users` WHERE `uuid`=$user_id";
             $result=$db->query($sql);
+            $final_result['hmm']=$result;
         }
     }
 }
