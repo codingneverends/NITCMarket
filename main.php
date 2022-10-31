@@ -75,6 +75,33 @@ if($_get)
         $data["password"]="oops";
         $final_result=$data;
     }
+    if($act=="changename"){
+        $uuid=$_POST['uuid'];
+        $name=$_POST['name'];
+        $sql="UPDATE `users` SET `name`='".$name."' WHERE `uuid`=$uuid";
+        $result=$db->query($sql);
+        $final_result=$result;
+    }
+    if($act=="changenumber"){
+        $uuid=$_POST['uuid'];
+        $number=$_POST['number'];
+        $sql="UPDATE `users` SET `phno`='".$number."' WHERE `uuid`=$uuid";
+        $result=$db->query($sql);
+        $final_result=$result;
+    }
+    if($act=="changepassword"){
+        $uuid=$_POST['uuid'];
+        $oldpass=$_POST['pass1'];
+        $newpass=$_POST['pass2'];
+        $sql="SELECT `password` FROM `users` WHERE `uuid`=$uuid";
+        $result=$db->query($sql);
+        $data=mysqli_fetch_assoc($result);
+        if($data['password']==$oldpass){
+            $sql="UPDATE `users` SET `password`='".$newpass."' WHERE `uuid`=$uuid";
+            $result=$db->query($sql);
+        }
+        $final_result=$result;
+    }
     if($act=="login"){
         $email=$_POST["email"];
         $passsword=$_POST["password"];
@@ -392,7 +419,6 @@ if($_get)
             }
             $sql="DELETE FROM `users` WHERE `uuid`=$user_id";
             $result=$db->query($sql);
-            $final_result['hmm']=$result;
         }
     }
 }

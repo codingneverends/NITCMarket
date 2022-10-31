@@ -164,6 +164,47 @@ const PoPUp = {
     hide() {
         this.ele.innerHTML = "";
         this.ele.classList = "dfc";
+    },
+    setname(val){
+        let html_ = `
+        <div class="wrapbox dfcc" onclick="if(event.stopPropagation){event.stopPropagation();}event.cancelBubble=true;">
+            <div class="title">Type new name</div>
+            <div class="msg"><input type='text' value="${val}" class="askpopup" id="setname"></div>
+            <div>
+                <i class="fa fa-check-circle-o" aria-hidden="true" style="color:#0f0" onclick="changename()"></i>
+                <i class="fa fa-times-circle-o" aria-hidden="true" style="color:#f00" onclick="PoPUp.hide()"></i>
+            </div>
+        </div>`;
+        this.ele.innerHTML = html_;
+        this.ele.classList = "dfc show";
+    },
+    setnumber(val){
+        let html_ = `
+        <div class="wrapbox dfcc" onclick="if(event.stopPropagation){event.stopPropagation();}event.cancelBubble=true;">
+            <div class="title">Type mobile number</div>
+            <div class="msg"><input type='text' value="${val}" class="askpopup" id="setnumber"></div>
+            <div>
+                <i class="fa fa-check-circle-o" aria-hidden="true" style="color:#0f0" onclick="changenumber()"></i>
+                <i class="fa fa-times-circle-o" aria-hidden="true" style="color:#f00" onclick="PoPUp.hide()"></i>
+            </div>
+        </div>`;
+        this.ele.innerHTML = html_;
+        this.ele.classList = "dfc show";
+    },
+    setpassword(){
+        let html_ = `
+        <div class="wrapbox dfcc" onclick="if(event.stopPropagation){event.stopPropagation();}event.cancelBubble=true;">
+            <div class="title">ChangePassword</div>
+            <div class="msg"><input type='password' class="askpopup" id="pass1" placeholder='old password'></div>
+            <div class="msg"><input type='password' class="askpopup" id="pass2" placeholder='new password'></div>
+            <div class="msg"><input type='password' class="askpopup" id="pass3" placeholder='re-type new password'></div>
+            <div>
+                <i class="fa fa-check-circle-o" aria-hidden="true" style="color:#0f0" onclick="changepassword()"></i>
+                <i class="fa fa-times-circle-o" aria-hidden="true" style="color:#f00" onclick="PoPUp.hide()"></i>
+            </div>
+        </div>`;
+        this.ele.innerHTML = html_;
+        this.ele.classList = "dfc show";
     }
 }
 
@@ -341,17 +382,17 @@ function _AccountPage(_data) {
             ${_role=="admin"?`<div class="user_datas">Admin</div>`:""}
             <div class="dfc user_datas">
                 <div class="userdata">${_data.name}</div>
-                ${_data.uuid == User.get().uuid?`<i class="fa fa-edit"></i>`:""}
+                ${_data.uuid == User.get().uuid?`<i class="fa fa-edit" onclick='PoPUp.setname("${_data.name}")'></i>`:""}
             </div>
             <div class="dfc user_datas">
                 <div class="userdata">${_data.phno}</div>
-                ${_data.uuid == User.get().uuid?`<i class="fa fa-edit"></i>`:""}
+                ${_data.uuid == User.get().uuid?`<i class="fa fa-edit" onclick='PoPUp.setnumber("${_data.phno}")'></i>`:""}
             </div>
             <div class="user_datas">${_data.email.toLowerCase()}</div>
             <div class="dfc user_datas">
-                ${_data.uuid == User.get().uuid?`<button>Change Password</button>`:""}
+                ${_data.uuid == User.get().uuid?`<button onclick='PoPUp.setpassword()' >Change Password</button>`:""}
             </div>
-            ${User.get().role=="admin"?`<button onclick='DeleteUser(${_data.uuid})'>Delete User</button>`:""}
+            ${User.get().role=="admin" && User.get().uuid!=_data.uuid?`<button onclick='DeleteUser(${_data.uuid})' class='del'>Delete User</button>`:""}
         </div>
     </div>`;
     SideBar.hide();
@@ -405,6 +446,53 @@ function DeleteUser(user_id){
     })
 }
 
+function changename(){
+    let _name=document.getElementById("setname").value.trim();
+    var url = siteurl + "main.php";
+    var data = new FormData();
+    data.append('status', 'changename');
+    data.append('name', _name);
+    data.append('uuid', Number(User.get().uuid));
+    Post(url, data, (data)=>{
+        console.log(data);
+        PoPUp.hide();
+        ShowAccount();
+    })
+}
+
+function changenumber(){
+    let _name=document.getElementById("setnumber").value.trim();
+    var url = siteurl + "main.php";
+    var data = new FormData();
+    data.append('status', 'changenumber');
+    data.append('number', _name);
+    data.append('uuid', Number(User.get().uuid));
+    Post(url, data, (data)=>{
+        console.log(data);
+        PoPUp.hide();
+        ShowAccount();
+    })
+}
+function changepassword(){
+    const pass1=document.getElementById("pass1").value.trim();
+    const pass2=document.getElementById("pass2").value.trim();
+    const pass3=document.getElementById("pass3").value.trim();
+    if(pass1.length<8||pass2.length<8||pass2!=pass3){
+        PoPUp.hide();
+        PoPUp.show("Error","Try Again...","error");
+        return;
+    }
+    var url = siteurl + "main.php";
+    var data = new FormData();
+    data.append('status', 'changepassword');
+    data.append('pass1', pass1);
+    data.append('pass2', pass2);
+    data.append('uuid', Number(User.get().uuid));
+    Post(url, data, (data)=>{
+        console.log(data);
+        PoPUp.hide();
+    })
+}
 //Update UserImage
 function SetImage(){
     //["lhkjh","png"]
