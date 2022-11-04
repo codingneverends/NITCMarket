@@ -56,7 +56,9 @@ The features include:
 ### For Linux
 
 1. Run the following command to install apache and mysql database
-         
+
+    Install apache2
+
         $sudo apt install apache2
 		         
         $sudo apt install mariadb-server
