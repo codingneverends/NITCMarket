@@ -83,21 +83,26 @@ The features include:
 # Usage
 
 ### In Windows
-		     1. Start Mysql and Apache
-			       Open xampp and start Mysql and Apache
+	1. Start Mysql and Apache
+		Open xampp and start Mysql and Apache
 
-		      2. Then proceed to login page by entering following url
-			       localhost/nitcmarket/
+	2. Then proceed to login page by entering following url
+			
+        localhost/nitcmarket/
 
 ### In Linux
-		      1. Start Mysql and Apache by running following commands
-			      $sudo systemctl restart apache2
-			      $sudo systemctl restart mysql
+    1. Start Mysql and Apache by running following commands
+			
+        $sudo systemctl restart apache2
+		
+        $sudo systemctl restart mysql
 
-		      2. Then proceed to login page by entering following url
-			      localhost/nitcmarket/
+	2. Then proceed to login page by entering following url
+			    
+        localhost/nitcmarket/
 
 
 ### Note
+
     In order to upload images of products while posting about them, change the upload folder path in the php file such that it references the storage folder where the image is stored.                             
 
