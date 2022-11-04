@@ -101,9 +101,9 @@ The features include:
 ### In Linux
 1. Start Mysql and Apache by running following commands
 			
-    $sudo systemctl restart apache2
+        $sudo systemctl restart apache2
 		
-    $sudo systemctl restart mysql
+        $sudo systemctl restart mysql
 
 2. Then proceed to login page by entering following url
 			    
