@@ -57,15 +57,15 @@ The features include:
 
 1. Run the following command to install apache and mysql database
          
-    $sudo apt install apache2
+        $sudo apt install apache2
 		         
-    $sudo apt install mariadb-server
+        $sudo apt install mariadb-server
 
 2. Run following commands to start service
         
-    $sudo systemctl start apache2
+        $sudo systemctl start apache2
 		        
-    $sudo systemctl start mysql
+        $sudo systemctl start mysql
 
 3. Create a folder called nitcmarket in var/www
 
@@ -73,19 +73,19 @@ The features include:
 
 5. Create a database called nitcmarket in mysql
 		       
-    $sudo mysql -u [user] -p [password]
+        $sudo mysql -u [user] -p [password]
 		       
-    create database nitcmarket;
+        create database nitcmarket;
 
 6. Import nitcmarket.sql to nitcmarket
 	
-    $sudo mysql -u [user] -p [password] nitcmarket<nitcmarket.sql
+        $sudo mysql -u [user] -p [password] nitcmarket<nitcmarket.sql
 
 7. Change database username and password inside maip.php
 
 8. Restart apache2
 	
-    $sudo systemctl restart apache2
+        $sudo systemctl restart apache2
 
 
 # Usage
@@ -96,7 +96,7 @@ The features include:
 
 2. Then proceed to login page by entering following url
 			
-    localhost/nitcmarket/
+        localhost/nitcmarket/
 
 ### In Linux
 1. Start Mysql and Apache by running following commands
@@ -107,7 +107,7 @@ The features include:
 
 2. Then proceed to login page by entering following url
 			    
-    localhost/nitcmarket/
+        localhost/nitcmarket/
 
 
 ### Note
