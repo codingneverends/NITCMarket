@@ -1,6 +1,8 @@
+---
 - hosts: webservers
   become: yes
   become_user: root
+  shell: /bin/bash
   tasks:
     - name: Install git
       package:
@@ -18,15 +20,9 @@
 
     - name: Download Chrome browser
       command: wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-      become: yes
-      become_user: root
-      shell: /bin/bash
 
     - name: Install Chrome Browser
       command: apt install ./google-chrome-stable_current_amd64.deb -y
-      become: yes
-      become_user: root
-      shell: /bin/bash
 
     - name: Run update
       apt:
@@ -34,24 +30,12 @@
 
     - name: download chromedriver
       command: wget https://chromedriver.storage.googleapis.com/87.0.4280.88/chromedriver_linux64.zip
-      become: yes
-      become_user: root
-      shell: /bin/bash
 
     - name: install unzip
       command: apt install unzip
-      become: yes
-      become_user: root
-      shell: /bin/bash
 
     - name: unzip chromedriver
       command: unzip chromedriver_linux64.zip
-      become: yes
-      become_user: root
-      shell: /bin/bash
 
     - name: move chromedriver
       command: mv chromedriver /home/ubuntu/
-      become: yes
-      become_user: root
-      shell: /bin/bash
