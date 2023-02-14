@@ -1,10 +1,26 @@
----
 - hosts: webservers
   become: yes
   become_user: root
-  shell: /bin/bash
   tasks:
-    - name: Install git
+    - name: Uninstall existing Git
+      package:
+        name: git
+        state: absent
+
+    - name: Uninstall existing Java
+      package:
+        name: openjdk-11-jdk
+        state: absent
+
+    - name: Remove existing Chrome installation
+      command: dpkg -r google-chrome-stable
+      ignore_errors: yes
+
+    - name: Remove existing ChromeDriver installation
+      command: rm -rf /home/ubuntu/chromedriver
+      ignore_errors: yes
+
+    - name: Install Git
       package:
         name: git
         state: present
@@ -13,7 +29,7 @@
       apt:
         update_cache: yes
 
-    - name: Install java
+    - name: Install Java
       package:
         name: openjdk-11-jdk
         state: latest
